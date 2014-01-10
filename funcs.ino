@@ -1,4 +1,3 @@
-
 void followLine()
 {
   int highdspeed = dspeed;
