@@ -78,8 +78,8 @@ void setup()
 #ifdef DEBUG
   debug();
 #else
-  attachInterrupt(4, Greenshield, FALLING);
-  delay(100);
+  //attachInterrupt(4, Greenshield, FALLING);
+  //delay(100);
   //===========================================================================================PROGRAM=============================================================================================
   while(true)
   {
