@@ -18,7 +18,6 @@ void followLine()
   delay(10);
 }
 
-}
 
 void search()
 {

@@ -6,7 +6,7 @@ void debug()
   Serial.begin(9600);
   Serial.println(String("hallo"));
   delay(1000);*/
-String text1 = "This string";
+ String text1 = "This string";
  Serial.begin(9600);
 
 
