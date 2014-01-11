@@ -195,7 +195,10 @@ void followLine()
 {
   int highdspeed = dspeed;
   int lowdspeed = dspeed-30;
-
+  
+  motor(-dspeed, -dspeed);
+  delay(10);
+  
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
   {
     if(digitalRead(light[2]) == 0) motor(highdspeed, -lowdspeed);
@@ -206,7 +209,7 @@ void followLine()
     while(digitalRead(light[1]) == 0 && digitalRead(light[3]) != 0) motor(highdspeed, -lowdspeed);
     while(digitalRead(light[5]) == 0 && digitalRead(light[3]) != 0)  motor(-lowdspeed, highdspeed);
   }
-  delay(10);
+  delay(50);
 }
 
 
