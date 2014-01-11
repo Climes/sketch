@@ -1,4 +1,3 @@
-
 void setup()
 {
   //============================================================================================SETUP=============================================================================================
@@ -37,6 +36,9 @@ void setup()
   lcd.clear();
 #endif
 
+  //accelerometer
+  accelSetup();
+  
   lcd.print(VERSION);
   //======KALIBRIERUNG==========
   while(!digitalRead(TOUCH1) == 0 && !digitalRead(TOUCH2) == 0)
