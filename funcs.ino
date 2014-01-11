@@ -22,9 +22,9 @@ void followLine()
 void search()
 {
   int dir[] = {
-    FORWARD, BACKWARD, LEFT, FORWARD, BACKWARD, RIGHT, FORWARD, BACKWARD, LEFT, FORWARD                                };
+    FORWARD, BACKWARD, LEFT, FORWARD, BACKWARD, RIGHT, FORWARD, BACKWARD, LEFT, FORWARD                                    };
   int lenght[] = {
-    800,  700,      500,  700,      700,    900,  700,     700,      500,  700                                };
+    800,  700,      500,  700,      700,    900,  700,     700,      500,  700                                    };
   for(int i=0; i <= (sizeof(dir) / sizeof(int))-1; i++)
   {
     OnFwd(dir[i], dspeed, dspeed);
@@ -160,6 +160,29 @@ int Sharp(int pin)
   return(distance);
 }
 
+int moveServo(int servo,int start,int stops,int lenght = 50)
+{          
+  Servo myservo;  
+  myservo.attach(servo); 
+  if ( start < stops ) 
+  {
+    for(int pos =start ; pos <=stops; pos++)     
+    {                                
+      myservo.write(pos);            
+      delay(lenght);                      
+    }
+  }
+  else
+  {
+    for(int pos =start; pos >= stops; pos--)  
+    {                                 
+      myservo.write(pos);              
+      delay(lenght);                    
+    } 
+  }
+}
+
+
 void obstacle()
 {
   // sharp zu dose: >20  
@@ -207,6 +230,8 @@ void print()
   return;
 #endif
 }
+
+
 
 
 
