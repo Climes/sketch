@@ -1,39 +1,3 @@
-void followLine()
-{
-  int highdspeed = dspeed;
-  int lowdspeed = dspeed-30;
-
-  if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
-  {
-    if(digitalRead(light[2]) == 0) OnFwd(LEFT, lowdspeed, highdspeed);
-    if(digitalRead(light[4]) == 0) OnFwd(RIGHT, highdspeed, lowdspeed);
-  }
-  else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
-  {
-    while(digitalRead(light[1]) == 0 && digitalRead(light[3]) != 0) OnFwd(LEFT, lowdspeed, highdspeed);
-    while(digitalRead(light[5]) == 0 && digitalRead(light[3]) != 0) OnFwd(RIGHT, highdspeed, lowdspeed);
-  }
-  delay(10);
-}
-
-
-void search()
-{
-  int dir[] = {
-    FORWARD, BACKWARD, LEFT, FORWARD, BACKWARD, RIGHT, FORWARD, BACKWARD, LEFT, FORWARD                                    };
-  int lenght[] = {
-    800,  700,      500,  700,      700,    900,  700,     700,      500,  700                                    };
-  for(int i=0; i <= (sizeof(dir) / sizeof(int))-1; i++)
-  {
-    OnFwd(dir[i], dspeed, dspeed);
-    for(int y = 0; y < lenght[i] && WHITE; y++) 
-    {
-      delay(1);
-    }
-  }
-
-}
-
 //         RICHTUNG RECHTS      LINKS
 
 void OnFwd(int dir, int dspeed1, int dspeed2)
@@ -180,6 +144,43 @@ int moveServo(int servo,int start,int stops,int lenght = 50)
   }
 }
 
+  //============================================================================================PARTS===========================================================================================
+
+void followLine()
+{
+  int highdspeed = dspeed;
+  int lowdspeed = dspeed-30;
+
+  if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
+  {
+    if(digitalRead(light[2]) == 0) motor(highdspeed, -lowdspeed);
+    if(digitalRead(light[4]) == 0) motor(-lowdspeed, highdspeed);
+  }
+  else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
+  {
+    while(digitalRead(light[1]) == 0 && digitalRead(light[3]) != 0) motor(highdspeed, -lowdspeed);
+    while(digitalRead(light[5]) == 0 && digitalRead(light[3]) != 0)  motor(-lowdspeed, highdspeed);
+  }
+  delay(10);
+}
+
+
+void search()
+{
+  int dir[] = {
+    FORWARD, BACKWARD, LEFT, FORWARD, BACKWARD, RIGHT, FORWARD, BACKWARD, LEFT, FORWARD                                    };
+  int lenght[] = {
+    800,  700,      500,  700,      700,    900,  700,     700,      500,  700                                    };
+  for(int i=0; i <= (sizeof(dir) / sizeof(int))-1; i++)
+  {
+    OnFwd(dir[i], dspeed, dspeed);
+    for(int y = 0; y < lenght[i] && WHITE; y++) 
+    {
+      delay(1);
+    }
+  }
+
+}
 
 void obstacle()
 {
@@ -194,33 +195,6 @@ void obstacle()
   while(light[3] = 1) OnFwd(FORWARD, dspeed, dspeed);
 }
 
-void Greenshield()
-{
-  /*while(digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1)
-   {
-   OnFwd(FORWARD, dspeed, dspeed);
-   }*/
-
-  motor(0);
-  /*lcd.clear();
-   lcd.print("Green!");*/
-  delay(500);
-
-  if(digitalRead(light[4]) == 0 || digitalRead(light[5]) == 0)
-  {
-    OnFwd(RIGHT, dspeed, dspeed);
-    delay(500);  
-  }
-  else
-  {
-    OnFwd(FORWARD, dspeed, dspeed); 
-    delay(700); 
-  }
-  motor(0);
-  delay(500);
-
-}
-
 void print()
 {
 #ifdef DISPLAY_OUT
@@ -228,8 +202,6 @@ void print()
   return;
 #endif
 }
-
-
 
 
 
