@@ -51,14 +51,6 @@
 #define ODOML 00
 #define ODOMR 00
 
-
-//OnFwd
-const int FORWARD = 1;  
-const int BACKWARD = 2;
-const int RIGHT = 3;                         
-const int LEFT = 4;
-const int OFF = 0;
-
 //Servos
 #define SERVO1 46
 #define SERVO2 22

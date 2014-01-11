@@ -1,33 +1,3 @@
-//         RICHTUNG RECHTS      LINKS
-
-void OnFwd(int dir, int dspeed1, int dspeed2)
-{
-  if(dir == 1)
-  {
-    digitalWrite(M1, HIGH);
-    digitalWrite(M2, HIGH);
-  }
-  if(dir == 2)
-  {
-    digitalWrite(M1, LOW);
-    digitalWrite(M2, LOW);
-  }
-  if(dir == 3)
-  {
-    digitalWrite(M1, HIGH);
-    digitalWrite(M2, LOW);
-
-  }
-  if(dir == 4)
-  {
-    digitalWrite(M1, LOW);
-    digitalWrite(M2, HIGH);
-  }
-
-  analogWrite(E1, dspeed1);
-  analogWrite(E2, dspeed2);
-}
-
 void motor(int rechts, int links=1,int del=0)
 {
   if(links == 1) links = rechts;
@@ -144,7 +114,7 @@ int moveServo(int servo,int start,int stops,int lenght = 50)
   }
 }
 
-  //============================================================================================PARTS===========================================================================================
+//============================================================================================PARTS===========================================================================================
 
 void followLine()
 {
@@ -167,24 +137,23 @@ void followLine()
 
 void search()
 {
-  int dir[] = {
-    FORWARD, BACKWARD, LEFT, FORWARD, BACKWARD, RIGHT, FORWARD, BACKWARD, LEFT, FORWARD                                    };
-  int lenght[] = {
-    800,  700,      500,  700,      700,    900,  700,     700,      500,  700                                    };
-  for(int i=0; i <= (sizeof(dir) / sizeof(int))-1; i++)
-  {
-    OnFwd(dir[i], dspeed, dspeed);
-    for(int y = 0; y < lenght[i] && WHITE; y++) 
-    {
-      delay(1);
-    }
-  }
+  int left[] =    {
+    dspeed, -dspeed,-dspeed,dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed    };
+  int right[] = {
+    dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed,-dspeed,dspeed,dspeed    };
+  int del[] = {
+    800,  700,500,700,700,900,700,700,500,700    };
 
+
+  for(int i=0; i <= (sizeof(del) / sizeof(int))-1; i++)
+  {
+    motor(right[i], left[i], del[i]);
+  }
 }
 
 void obstacle()
 {
-  // sharp zu dose: >20  
+  /*
   OnFwd(BACKWARD, dspeed, dspeed);
   delay(500);
   while(ultraSonic(trigL,pwmL) > 10) OnFwd(RIGHT, dspeed, dspeed);
@@ -192,7 +161,7 @@ void obstacle()
   while(Sharp(SHARP1) < 20) OnFwd(LEFT, dspeed, dspeed);
   while(ultraSonic(trigL,pwmL) < 15) OnFwd(FORWARD, dspeed, dspeed);
   while(ultraSonic(trigL,pwmL) > 10) OnFwd(LEFT, dspeed, dspeed); 
-  while(light[3] = 1) OnFwd(FORWARD, dspeed, dspeed);
+  while(light[3] = 1) OnFwd(FORWARD, dspeed, dspeed);*/
 }
 
 void print()
@@ -202,6 +171,10 @@ void print()
   return;
 #endif
 }
+
+
+
+
 
 
 
