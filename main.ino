@@ -29,13 +29,6 @@ void setup()
   digitalWrite(TOUCH1,HIGH);
   pinMode(TOUCH2,INPUT); 
   digitalWrite(TOUCH2,HIGH);
-  //pinMode(touch3,INPUT);
-  //digitalWrite(touch3,HIGH);
-
-  //Interupts
-  //attachInterrupt(0, countRight, FALLING); besser nur bei verwendung nutzen
-  //attachInterrupt(1, countLeft, FALLING);
-
 
   //Display
 #ifdef DISPLAY_OUT

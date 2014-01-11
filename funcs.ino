@@ -58,6 +58,7 @@ void turn(int rechts, int links=1)
 
 void countLeft() {
   counterLeft++;
+  //test
 }
 void countRight(){
   counterRight++;
@@ -142,7 +143,7 @@ void search()
   int right[] = {
     dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed,-dspeed,dspeed,dspeed    };
   int del[] = {
-    800,  700,500,700,700,900,700,700,500,700    };
+    800,  700,400,700,700,900,700,700,500,700    };
 
 
   for(int i=0; i <= (sizeof(del) / sizeof(int))-1; i++)
