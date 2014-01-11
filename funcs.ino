@@ -93,6 +93,80 @@ int Sharp(int pin)
   return(distance);
 }
 
+//-----------------------------Wire.h-additions-----------------------------------
+
+//Writes val to address register on device
+void writeTo(int device, byte address, byte val) {
+  Wire.beginTransmission(device); //start transmission to device
+  Wire.write(address);        // send register address
+  Wire.write(val);        // send value to write
+  Wire.endTransmission(); //end transmission
+}
+
+//reads num bytes starting from address register on device in to buff array
+void readFrom(int device, byte address, int num, byte buff[]) {
+  Wire.beginTransmission(device); //start transmission to device
+  Wire.write(address);        //sends address to read from
+  Wire.endTransmission(); //end transmission
+
+    Wire.beginTransmission(device); //start transmission to device
+  Wire.requestFrom(device, num);    // request 6 bytes from device
+
+  int i = 0;
+  while(Wire.available())    //device may send less than requested (abnormal)
+  {
+    buff[i] = Wire.read(); // receive a byte
+    i++;
+  }
+  Wire.endTransmission(); //end transmission
+}
+//---------------------------------------------------------------------------------------
+
+void accelSetup()
+{
+  Wire.begin();
+  writeTo(DEVICE, 0x2D, 0);     
+  writeTo(DEVICE, 0x2D, 16);
+  writeTo(DEVICE, 0x2D, 8);
+}
+
+int accelRead(int d)
+{
+  int regAddress = 0x32;    //first axis-acceleration-data register on the ADXL345
+  int x, y, z;
+
+  readFrom(DEVICE, regAddress, TO_READ, buff); //read the acceleration data from the ADXL345
+
+  //each axis reading comes in 10 bit resolution, ie 2 bytes.  Least Significat Byte first!!
+  //thus we are converting both bytes in to one int
+  x = (((int)buff[1]) << 8) | buff[0];  
+  y = (((int)buff[3])<< 8) | buff[2];
+  z = (((int)buff[5]) << 8) | buff[4]; 
+
+  //It appears that delay is needed in order not to clog the port
+  delay(50);
+
+  switch(d)
+  {
+  case 1:
+    return(x);
+  case 2:
+    return(y);
+  case 3:
+    return(z);
+  }
+}
+
+int accelReadx(){ 
+  return(accelRead(1));
+}
+int accelReady() {
+  return(accelRead(2));
+}
+int accelReadz(){ 
+  return(accelRead(3));
+}
+
 int moveServo(int servo,int start,int stops,int lenght = 50)
 {          
   Servo myservo;  
@@ -139,11 +213,11 @@ void followLine()
 void search()
 {
   int left[] =    {
-    dspeed, -dspeed,-dspeed,dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed    };
+    dspeed, -dspeed,-dspeed,dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed      };
   int right[] = {
-    dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed,-dspeed,dspeed,dspeed    };
+    dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed,-dspeed,dspeed,dspeed      };
   int del[] = {
-    800,  700,500,700,700,900,700,700,500,700    };
+    800,  700,500,700,700,900,700,700,500,700      };
 
 
   for(int i=0; i <= (sizeof(del) / sizeof(int))-1; i++)
@@ -156,13 +230,13 @@ void obstacle()
 {
   /*
   OnFwd(BACKWARD, dspeed, dspeed);
-  delay(500);
-  while(ultraSonic(trigL,pwmL) > 10) OnFwd(RIGHT, dspeed, dspeed);
-  while(Sharp(SHARP1) > 20) OnFwd(FORWARD, dspeed, dspeed);
-  while(Sharp(SHARP1) < 20) OnFwd(LEFT, dspeed, dspeed);
-  while(ultraSonic(trigL,pwmL) < 15) OnFwd(FORWARD, dspeed, dspeed);
-  while(ultraSonic(trigL,pwmL) > 10) OnFwd(LEFT, dspeed, dspeed); 
-  while(light[3] = 1) OnFwd(FORWARD, dspeed, dspeed);*/
+   delay(500);
+   while(ultraSonic(trigL,pwmL) > 10) OnFwd(RIGHT, dspeed, dspeed);
+   while(Sharp(SHARP1) > 20) OnFwd(FORWARD, dspeed, dspeed);
+   while(Sharp(SHARP1) < 20) OnFwd(LEFT, dspeed, dspeed);
+   while(ultraSonic(trigL,pwmL) < 15) OnFwd(FORWARD, dspeed, dspeed);
+   while(ultraSonic(trigL,pwmL) > 10) OnFwd(LEFT, dspeed, dspeed); 
+   while(light[3] = 1) OnFwd(FORWARD, dspeed, dspeed);*/
 }
 
 void print()
@@ -172,6 +246,7 @@ void print()
   return;
 #endif
 }
+
 
 
 

@@ -77,6 +77,15 @@ int light[] = {
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27
 
+//ADXL345 Sensor
+#define DEVICE (0x53)    //ADXL345 device address
+#define TO_READ (6)        //num of bytes we are going to read each time (two bytes for each axis)
+ 
+byte buff[TO_READ] ;    //6 bytes buffer for saving data read from the device
+char str[512];      
+
+//END Defines
+
 void loop(){};
 
 
