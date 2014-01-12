@@ -190,7 +190,7 @@ int moveServo(int servo,int pos,int lenght = 50)
 //____________________________________PARTS_____________________________________
 void followLine()
 {
-  if(digitalRead(light[2]) == 0 && digitalRead(light[4]) == 0)  //Ausnahme: kreuzung
+  if(digitalRead(light[2]) == 0 && digitalRead(light[4]) == 0 || digitalRead(light[1]) == 0 && digitalRead(light[5]) == 0)  //Ausnahme: kreuzung
   {
     intersection();
     return;
