@@ -166,23 +166,23 @@ int accelReadz(){
   return(accelRead(3));
 }
 
-int moveServo(int servo,int start,int stops,int lenght = 50)
+int moveServo(int servo,int pos,int lenght = 50)
 {          
   Servo myservo;  
   myservo.attach(servo); 
-  if ( start < stops ) 
+  if (servoPos[servo] < pos) 
   {
-    for(int pos =start ; pos <=stops; pos++)     
+    for(servoPos[servo] ; servoPos[servo] <=pos; servoPos[servo]++)     
     {                                
-      myservo.write(pos);            
+      myservo.write(servoPos[servo]);            
       delay(lenght);                      
     }
   }
   else
   {
-    for(int pos =start; pos >= stops; pos--)  
+    for(servoPos[servo]; servoPos[servo] >=pos; servoPos[servo]--)  
     {                                 
-      myservo.write(pos);              
+      myservo.write(servoPos[servo]);              
       delay(lenght);                    
     } 
   }
@@ -219,7 +219,6 @@ void search()
   int del[] = {
     800,  700,500,700,700,900,700,700,500,700};
 
-
   for(int i=0; i <= (sizeof(del) / sizeof(int))-1; i++)
   {
     motor(right[i], left[i], del[i]);
@@ -246,6 +245,7 @@ void print()
   return;
 #endif
 }
+
 
 
 
