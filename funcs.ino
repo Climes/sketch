@@ -190,6 +190,11 @@ int moveServo(int servo,int pos,int lenght = 50)
 //____________________________________PARTS_____________________________________
 void followLine()
 {
+  if(digitalRead(light[2]) == 0 && digitalRead(light[4]) == 0)  //Ausnahme: kreuzung
+  {
+    intersection();
+    return;
+  }
   int highdspeed = dspeed;
   int lowdspeed = dspeed-30;
 
@@ -209,6 +214,10 @@ void followLine()
   delay(50);
 }
 
+
+void intersection()
+{
+}
 
 void search()
 {
