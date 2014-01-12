@@ -36,6 +36,10 @@ void setup()
   lcd.clear();
 #endif
 
+  //Servos
+  servoPos[SERVO1] = 0;
+  servoPos[SERVO2] = 0;
+  servoPos[SERVO3] = 0;
   //accelerometer
   accelSetup();
   

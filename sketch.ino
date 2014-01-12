@@ -18,13 +18,19 @@
 //#define TOUCH_RESCUE
 //#define SEARCH 
 
+//Geschwindigkeit
+#ifdef DRIVE
+int dspeed = DRIVE;
+#else
+int dspeed = 190;
+#endif
+
 #define LED 13
 #define Off() OnFwd(FORWARD,0,0) //Konstante für Off = Ausschalten der Motoren
 #define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1  //Konstante für alle Lichtsensoren Weiss
 //Greenshield
 #define GR_INPUT 19
 #define GR_RESET 46
-
 
 //Sharp - Ultraschallsensoren
 #define SHARP1 A1 
@@ -56,24 +62,20 @@
 #define SERVO2 22
 #define SERVO3 28
 
-#ifdef DRIVE
-int dspeed = DRIVE;
-#else
-int dspeed = 190;
-#endif
+int servoPos[SERVO1];
 
 //Odometer
 int counterLeft = 0;
 int counterRight = 0;
 
+//Ultrasonic Displaylog
 int counter = 0;
-
 int oldcounter = 0;
 
 //Lichtarray
 int light[] = {
   0,14,15,16,17,18};
-  
+
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27
 
@@ -85,7 +87,6 @@ byte buff[TO_READ] ;    //6 bytes buffer for saving data read from the device
 char str[512];      
 
 //END Defines
-
 void loop(){};
 
 
