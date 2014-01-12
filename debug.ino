@@ -1,3 +1,4 @@
+//GEDANKENSCHROTT ;D
 void debug()
 {
 

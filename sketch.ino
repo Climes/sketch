@@ -1,8 +1,8 @@
 #define VERSION "UEBELSTGEILON_1"
 
 #include <Wire.h> 
-#include<Servo.h>
-#include <LiquidCrystal_I2C.h> //Display
+#include <Servo.h>
+#include <LiquidCrystal_I2C.h> 
 #include <DistanceGP2Y0A21YK.h>
 
 //Settings
@@ -54,8 +54,9 @@ int dspeed = 190;
 #define E2 5                     
 #define M2 4
 
-#define ODOML 00
-#define ODOMR 00
+//Odometer
+#define ODOML 0
+#define ODOMR 1
 
 //Servos
 #define SERVO1 46

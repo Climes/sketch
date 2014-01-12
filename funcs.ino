@@ -58,7 +58,6 @@ void turn(int rechts, int links=1)
 
 void countLeft() {
   counterLeft++;
-  //test
 }
 void countRight(){
   counterRight++;
@@ -188,17 +187,15 @@ int moveServo(int servo,int start,int stops,int lenght = 50)
     } 
   }
 }
-
-//============================================================================================PARTS===========================================================================================
-
+//____________________________________PARTS_____________________________________
 void followLine()
 {
   int highdspeed = dspeed;
   int lowdspeed = dspeed-30;
-  
+
   motor(-dspeed, -dspeed);
   delay(10);
-  
+
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
   {
     if(digitalRead(light[2]) == 0) motor(highdspeed, -lowdspeed);
@@ -216,11 +213,11 @@ void followLine()
 void search()
 {
   int left[] =    {
-    dspeed, -dspeed,-dspeed,dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed      };
+    dspeed, -dspeed,-dspeed,dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed};
   int right[] = {
-    dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed,-dspeed,dspeed,dspeed      };
+    dspeed,-dspeed,dspeed,dspeed,-dspeed, -dspeed,dspeed,-dspeed,dspeed,dspeed};
   int del[] = {
-    800,  700,500,700,700,900,700,700,500,700      };
+    800,  700,500,700,700,900,700,700,500,700};
 
 
   for(int i=0; i <= (sizeof(del) / sizeof(int))-1; i++)
@@ -249,6 +246,7 @@ void print()
   return;
 #endif
 }
+
 
 
 

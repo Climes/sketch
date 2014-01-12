@@ -1,6 +1,6 @@
 void setup()
 {
-  //============================================================================================SETUP=============================================================================================
+  //____________________________________SETUP_____________________________________
   //Lichtsensoren
   pinMode(light[1], INPUT);
   pinMode(light[2], INPUT);
@@ -36,50 +36,55 @@ void setup()
   lcd.clear();
 #endif
 
+  lcd.print(VERSION);
+
   //Servos
   servoPos[SERVO1] = 0;
   servoPos[SERVO2] = 0;
   servoPos[SERVO3] = 0;
+
   //accelerometer
   accelSetup();
-  
-  lcd.print(VERSION);
-  //======KALIBRIERUNG==========
-  while(!digitalRead(TOUCH1) == 0 && !digitalRead(TOUCH2) == 0)
-  {
-  }
-  lcd.clear();
 
-  //Greenshield
-  pinMode(LED,OUTPUT);        // SMD-LED
-  pinMode(GR_RESET,OUTPUT);        // RESET-Ausgang
-  digitalWrite(GR_RESET,LOW);
 
-  for(int i=0; i<5; i++)
-  {
-    digitalWrite(LED,HIGH);
-    delay(500-i*100);
-    digitalWrite(LED,LOW);
-    delay(100); 
-  }
-  digitalWrite(GR_RESET,HIGH);
-  delay(1000);
-  digitalWrite(GR_RESET,LOW);   
 
-  lcd.clear();
-  lcd.print("kalibriert");
-  while(!digitalRead(TOUCH1) == 0 && !digitalRead(TOUCH2) == 0)
-  {
-  }
-  lcd.clear();
+  //Greenshield & Kalibrierung 
+  /*while(!digitalRead(TOUCH1) == 0 && !digitalRead(TOUCH2) == 0)
+   {
+   }
+   lcd.clear();
+   
+   //Greenshield
+   pinMode(LED,OUTPUT);        // SMD-LED
+   pinMode(GR_RESET,OUTPUT);        // RESET-Ausgang
+   digitalWrite(GR_RESET,LOW);
+   
+   for(int i=0; i<5; i++)
+   {
+   digitalWrite(LED,HIGH);
+   delay(500-i*100);
+   digitalWrite(LED,LOW);
+   delay(100); 
+   }
+   digitalWrite(GR_RESET,HIGH);
+   delay(1000);
+   digitalWrite(GR_RESET,LOW);   
+   
+   lcd.clear();
+   lcd.print("kalibriert");
+   while(!digitalRead(TOUCH1) == 0 && !digitalRead(TOUCH2) == 0)
+   {
+   }
+   lcd.clear();
+   
+   attachInterrupt(4, Greenshield, FALLING);
+   delay(100); */
 
-  //============================
 #ifdef DEBUG
   debug();
 #else
-  //attachInterrupt(4, Greenshield, FALLING);
-  //delay(100);
-  //===========================================================================================PROGRAM=============================================================================================
+
+  //___________________________________PROGRAM_______________________________________
   while(true)
   {
     if(counter >= 100) 
@@ -112,18 +117,16 @@ void setup()
     {
       search();
     }
-    else if(digitalRead(light[3] == 1))
+    else //if(digitalRead(light[3] == 1)) //testing
     {
       followLine();
-      //-->Implementierung Greenshield
     }
-    /*if(!digitalRead(GR_INPUT) == 1)
-     {
-     if (digitalRead(light[1]) == 0 || digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0 || digitalRead(light[5]) == 0) Greenshield();
-     }*/
   }
 #endif
 }
+
+
+
 
 
 
