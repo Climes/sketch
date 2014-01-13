@@ -48,12 +48,12 @@ void turn(int rechts, int links=1)
 
     if(counterRight <rechts)
       analogWrite(E1, rechts);
-    else
+    else if(links != rechts)
       analogWrite(E1, 0);
       
     if(counterLeft <links)
       analogWrite(E2, links);
-    else
+    else if(links != rechts)
       analogWrite(E2, 0);
   }
 
@@ -218,7 +218,6 @@ void followLine()
   }
   delay(50);
 }
-
 
 void intersection()
 {
