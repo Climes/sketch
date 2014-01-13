@@ -48,8 +48,13 @@ void turn(int rechts, int links=1)
 
     if(counterRight <rechts)
       analogWrite(E1, rechts);
+    else
+      analogWrite(E1, 0);
+      
     if(counterLeft <links)
       analogWrite(E2, links);
+    else
+      analogWrite(E2, 0);
   }
 
   detachInterrupt(ODOML);
