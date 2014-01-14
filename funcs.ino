@@ -211,14 +211,15 @@ void followLine()
   }
   else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
   {
-    while(digitalRead(light[1]) == 0 && digitalRead(light[3]) != 0) motor(-lowdspeed, highdspeed);
-    while(digitalRead(light[5]) == 0 && digitalRead(light[3]) != 0) motor(highdspeed, -lowdspeed);
+    while(digitalRead(light[1]) == 0 || digitalRead(light[3]) != 0) motor(-lowdspeed, highdspeed);
+    while(digitalRead(light[5]) == 0 || digitalRead(light[3]) != 0) motor(highdspeed, -lowdspeed);
   }
   delay(100);
 }
 
 void intersection()
 {
+  lcd.print("intersection") //debug
 }
 
 void search()
