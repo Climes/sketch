@@ -200,23 +200,21 @@ void followLine()
     intersection();
     return;
   }
+  
   int highdspeed = dspeed;
   int lowdspeed = dspeed-30;
-
-  motor(-dspeed, -dspeed);
-  delay(10);
-
+  
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
   {
-    if(digitalRead(light[2]) == 0) motor(highdspeed, -lowdspeed);
-    if(digitalRead(light[4]) == 0) motor(-lowdspeed, highdspeed);
+    if(digitalRead(light[2]) == 0) motor(-highdspeed, lowdspeed);
+    if(digitalRead(light[4]) == 0) motor(lowdspeed, -highdspeed);
   }
   else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
   {
-    while(digitalRead(light[1]) == 0 || digitalRead(light[3]) != 0) motor(highdspeed, -lowdspeed);
-    while(digitalRead(light[5]) == 0 || digitalRead(light[3]) != 0)  motor(-lowdspeed, highdspeed);
+    while(digitalRead(light[1]) == 0 && digitalRead(light[3]) != 0) motor(-highdspeed, lowdspeed);
+    while(digitalRead(light[5]) == 0 && digitalRead(light[3]) != 0) motor(lowdspeed, -highdspeed);
   }
-  delay(50);
+  delay(100);
 }
 
 void intersection()
@@ -232,7 +230,7 @@ void search()
   int del[] = {
     800,  700,500,700,700,900,700,700,500,700};
 
-  for(int i=0; i <= (sizeof(del) / sizeof(int))-1; i++)
+  for(int i=0; i <= (sizeof(del) / sizeof(int))-1 && WHITE; i++)
   {
     motor(right[i], left[i], del[i]);
   }
