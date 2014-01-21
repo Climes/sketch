@@ -6,7 +6,7 @@
 #include <DistanceGP2Y0A21YK.h>
 
 //Settings
-#define DEBUG
+//#define DEBUG
 #define LINE_FOLLOWING
 #define DRIVE 200
 #define OBSTACLE

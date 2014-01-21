@@ -117,7 +117,7 @@ void setup()
     {
       search();
     }
-    else //if(digitalRead(light[3] == 1)) //testing
+    else
     {
       followLine();
     }

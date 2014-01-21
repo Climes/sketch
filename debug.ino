@@ -2,17 +2,6 @@
 void debug()
 {
 
-  /*lcd.clear();
-  String time = "HALLO";
-  Serial.begin(9600);
-  Serial.println(String("hallo"));
-  delay(1000);*/
- String text1 = "This string";
- Serial.begin(9600);
-
-
-  Serial.print( text1);
-
 }
 String *log_arr = new String[999];
 int log_i = 0;
