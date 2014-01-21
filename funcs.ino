@@ -195,32 +195,32 @@ int moveServo(int servo,int pos,int lenght = 50)
 //____________________________________PARTS_____________________________________
 void followLine()
 {
-  if(digitalRead(light[1]) == 0 || digitalRead(light[1]) == 0 && digitalRead(light[4]) == 0 || digitalRead(light[5]) == 0)  //Ausnahme: kreuzung
+  if((digitalRead(light[1]) == 0 || digitalRead(light[2]) == 0) && (digitalRead(light[4]) == 0 || digitalRead(light[5]) == 0))  //Ausnahme: kreuzung
   {
     intersection();
     return;
   }
   
   int highdspeed = dspeed;
-  int lowdspeed = dspeed-30;
+  int lowdspeed = -dspeed-10;
   
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
   {
-    if(digitalRead(light[2]) == 0) motor(-lowdspeed, highdspeed);
-    if(digitalRead(light[4]) == 0) motor(highdspeed, -lowdspeed);
+    while(digitalRead(light[2]) == 0 || digitalRead(light[3]) == 1) motor(lowdspeed, highdspeed);
+    while(digitalRead(light[4]) == 0 || digitalRead(light[3]) == 1) motor(highdspeed, lowdspeed);
   }
   else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
   {
-    while(digitalRead(light[1]) == 0 || digitalRead(light[3]) != 0) motor(-lowdspeed, highdspeed);
-    while(digitalRead(light[5]) == 0 || digitalRead(light[3]) != 0) motor(highdspeed, -lowdspeed);
+    while(digitalRead(light[1]) == 0 || digitalRead(light[3]) == 1) motor(lowdspeed, highdspeed);
+    while(digitalRead(light[5]) == 0 || digitalRead(light[3]) == 1) motor(highdspeed, lowdspeed);
   }
-  delay(100);
+  delay(10);
 }
 
 void intersection()
 {
   lcd.clear();
-  lcd.print("intersection") //debug
+  lcd.print("intersection"); //debug
 }
 
 void search()
