@@ -202,8 +202,8 @@ void followLine()
     return;
   }
   
-  int highdspeed = dspeed;
-  int lowdspeed = -(dspeed-10);
+  int highdspeed = dspeed+10;
+  int lowdspeed = -dspeed;
   
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
   {

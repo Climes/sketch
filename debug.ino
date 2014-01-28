@@ -2,8 +2,10 @@ void debug()
 {
 }
 int log_i = 0;
+String logEvent[999] = {};
 void addLog(String string)
 {
+  logEvent[log_i] = getTime() + string;
   log_i++;
 }
 
@@ -31,7 +33,7 @@ String getTime()
     secs2 = String(secs);
   }
 
-  return(String(mins2) + ":" + String(secs2));
+  return(mins2+ ":" + secs2);
 }
 
 
