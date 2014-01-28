@@ -28,9 +28,6 @@ int dspeed = 190;
 #define LED 13
 #define Off() OnFwd(FORWARD,0,0) //Konstante für Off = Ausschalten der Motoren
 #define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1  //Konstante für alle Lichtsensoren Weiss
-//Greenshield
-#define GR_INPUT 19
-#define GR_RESET 46
 
 //Sharp - Ultraschallsensoren
 #define SHARP1 A1 
@@ -43,6 +40,8 @@ int dspeed = 190;
 
 #define trigR 52
 #define pwmR 53
+
+int counter = 0;
 
 //Touch Sensoren
 #define TOUCH1 30
@@ -68,10 +67,6 @@ int servoPos[SERVO1];
 //Odometer
 int counterLeft = 0;
 int counterRight = 0;
-
-//Ultrasonic Displaylog
-int counter = 0;
-int oldcounter = 0;
 
 //Lichtarray
 int light[] = {

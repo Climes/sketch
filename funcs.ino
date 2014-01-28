@@ -73,17 +73,18 @@ int ultraSonic(int trig, int pwm)
   digitalWrite(trig, LOW);
   digitalWrite(trig, HIGH);
 
-  if(oldcounter != counter)
+  if(counter == 0)
   {
     lcd.clear();
     lcd.setCursor(0,0);
     lcd.print(pulseIn(pwm, LOW) /50);
-    oldcounter = counter;
+    counter = 1;
   }
   else
   {
     lcd.setCursor(0,1);
     lcd.print(pulseIn(pwm, LOW) /50);
+    counter = 0;
   }  
   return pulseIn(pwm, LOW) /50;
 }
@@ -240,15 +241,37 @@ void search()
 
 void obstacle()
 {
-  /*
-  OnFwd(BACKWARD, dspeed, dspeed);
-   delay(500);
-   while(ultraSonic(trigL,pwmL) > 10) OnFwd(RIGHT, dspeed, dspeed);
-   while(Sharp(SHARP1) > 20) OnFwd(FORWARD, dspeed, dspeed);
-   while(Sharp(SHARP1) < 20) OnFwd(LEFT, dspeed, dspeed);
-   while(ultraSonic(trigL,pwmL) < 15) OnFwd(FORWARD, dspeed, dspeed);
-   while(ultraSonic(trigL,pwmL) > 10) OnFwd(LEFT, dspeed, dspeed); 
-   while(light[3] = 1) OnFwd(FORWARD, dspeed, dspeed);*/
+   motor(-200);
+   delay(300);
+   motor(0);
+   if(ultraSonic(trigL,pwmL) < ultraSonic(trigR, pwmR))
+   {
+     motor(200, -200, 500);
+     motor(200);
+     delay(300);
+     motor(-200, 200, 600);
+     motor(200);
+     delay(300);
+     motor(-200, 200, 600);
+     while(digitalRead(light[3]) == 1)
+     {
+       motor(200);
+     }
+   }
+   else
+   {
+     motor(-200, 200, 600);
+     motor(200);
+     delay(300);
+     motor(200, -200, 600); 
+     motor(200);
+     delay(300);
+     motor(200, -200, 600); 
+     while(digitalRead(light[3]) == 1)
+     {
+       motor(200);
+     } 
+   }
 }
 
 void print()

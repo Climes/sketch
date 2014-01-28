@@ -1,21 +1,13 @@
-//GEDANKENSCHROTT ;D
 void debug()
 {
-
 }
-String *log_arr = new String[999];
 int log_i = 0;
-
 void addLog(String string)
 {
-
-
-
-
   log_i++;
 }
 
-int getTime(String &time)
+String getTime()
 {
   int secs = millis()/1000;
   int mins= 0;
@@ -39,6 +31,7 @@ int getTime(String &time)
     secs2 = String(secs);
   }
 
-  time = "WORKS!";
+  return(String(mins2) + ":" + String(secs2));
 }
+
 
