@@ -45,44 +45,57 @@ void setup()
 
   //accelerometer
   accelSetup();
+  Serial.begin(9600);
   
 #ifdef DEBUG
-  debug();
+  while(true) debug();
 #else
 
   //___________________________________PROGRAM_______________________________________
   while(true)
   {
-    motor(dspeed);
-
-    //Hindernis oder Rettungsmanöver
-    if(!digitalRead(TOUCH1) == 1 && !digitalRead(TOUCH2) == 1) //Vordere Drucksensoren
+    if(!ramp())
     {
-      if(digitalRead(light[3]) == 0) //Mittlerer Lichtwert Schwarz
+      motor(dspeed);
+      
+      //Hindernis oder Rettungsmanöver
+      if(!digitalRead(TOUCH1) == 1 && !digitalRead(TOUCH2) == 1) //Vordere Drucksensoren
       {
-        motor(0);
-        obstacle(); //BUGGY                    
+        if(digitalRead(light[3]) == 0) //Mittlerer Lichtwert Schwarz
+        {
+          motor(0);
+          obstacle(); //BUGGY                    
+        }
+        else
+        {
+          //Rettungsmanöver: Zurück auf die Linie
+          motor(-dspeed);
+          delay(700);
+        }
+      }
+
+      //Suche oder Linie
+#ifdef LINE_FOLLOWING
+      if(WHITE)
+      {
+        search();
       }
       else
       {
-        //Rettungsmanöver: Zurück auf die Linie
-        motor(-dspeed);
-        delay(700);
+        followLine();
       }
     }
-
-    //Suche oder Linie
-    if(WHITE)
+    else if(ramp())
     {
-      search();
+      motor(250);
     }
-    else
-    {
-      followLine();
-    }
+#endif
   }
 #endif
 }
+
+
+
 
 
 

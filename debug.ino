@@ -1,8 +1,10 @@
 void debug()
 {
+  Serial.println(accelReadz());
+  delay(100);
 }
-int log_i = 0;
-String logEvent[999] = {};
+/*int log_i = 0;
+String logEvent[100] = {};
 void addLog(String string)
 {
   logEvent[log_i] = getTime() + string;
@@ -36,4 +38,11 @@ String getTime()
   return(mins2+ ":" + secs2);
 }
 
-
+void pushToSerial()
+{
+  for(int i = 0; i < log_i; i++)
+  {
+    Serial.println(logEvent[i]);
+  }
+}
+*/

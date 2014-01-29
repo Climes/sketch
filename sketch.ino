@@ -3,7 +3,6 @@
 #include <Wire.h> 
 #include <Servo.h>
 #include <LiquidCrystal_I2C.h> 
-#include <DistanceGP2Y0A21YK.h>
 
 //Settings
 //#define DEBUG

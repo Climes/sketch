@@ -89,13 +89,26 @@ int ultraSonic(int trig, int pwm)
   return pulseIn(pwm, LOW) /50;
 }
 
-int Sharp(int pin)
+int SENSOR_RAW_WERTE[46] =   { 666, 660, 620, 565, 521, 475, 437, 408, 381, 358, 337, 318, 305, 291, 276, 270, 255, 245, 236, 229, 221, 212, 207, 200, 196, 187, 176, 168, 159, 155, 152, 146, 142, 135, 134, 126, 122, 116, 114, 110, 105, 100,  98,  96,  95,    0 };
+int SENSOR_MANIP_WERTE[46] = {  65,  70,  80,  90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 320, 340, 360, 380, 400, 420, 440, 460, 480, 500, 530, 560, 590, 620, 650, 680, 710, 740, 770, 800, 1000 };
+int Sharp(int sensor)
 {
-  DistanceGP2Y0A21YK Dist;
-  Dist.begin(pin);
-  int distance = Dist.getDistanceCentimeter();
-  if(distance == 0) return(0);
-  return(distance);
+   sensor = analogRead(sensor);
+   int idx=-1;
+   for(int i=0; i<45; i++)
+   {
+      if((sensor<SENSOR_RAW_WERTE[i] && sensor>=SENSOR_RAW_WERTE[i+1]))
+       { idx = i; break; }
+   }
+   #define MO (SENSOR_MANIP_WERTE[idx+1])
+   #define MU (SENSOR_MANIP_WERTE[idx])
+   #define RO (SENSOR_RAW_WERTE[idx+1])
+   #define RU (SENSOR_RAW_WERTE[idx])
+   return MO - ((sensor-RO)*(MO-MU)/(RU-RO)) - 40;
+   #undef MO
+   #undef MU
+   #undef RO
+   #undef RU
 }
 
 //-----------------------------Wire.h-additions-----------------------------------
@@ -202,7 +215,9 @@ void followLine()
     return;
   }
   
-  int highdspeed = dspeed+10;
+  int highdspeed;
+  if(ramp)highdspeed = dspeed + 10;
+  else highdspeed = dspeed;
   int lowdspeed = -dspeed;
   
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
@@ -246,7 +261,7 @@ void obstacle()
    motor(0);
    if(ultraSonic(trigL,pwmL) < ultraSonic(trigR, pwmR))
    {
-     motor(200, -200, 500);
+     motor(200, -200, 600);
      motor(200);
      delay(300);
      motor(-200, 200, 600);
@@ -272,6 +287,29 @@ void obstacle()
        motor(200);
      } 
    }
+}
+
+int cache = 0;
+boolean ramp()
+{
+  if(accelReadz() <= -120 && cache == 0)
+  {
+    cache = 1;
+    return true;
+  }
+  if(cache == 1)
+  {
+    if(accelReadz() >= -60)
+    {
+     cache = 0;
+     return false;
+    }
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 void print()
