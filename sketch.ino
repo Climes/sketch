@@ -69,7 +69,7 @@ int counterRight = 0;
 
 //Lichtarray
 int light[] = {
-  0,14,15,16,17,18};
+  0,14,15,16,17,18,43};
 
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27

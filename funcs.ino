@@ -209,16 +209,16 @@ int moveServo(int servo,int pos,int lenght = 50)
 //____________________________________PARTS_____________________________________
 void followLine()
 {
-  if((digitalRead(light[1]) == 0 || digitalRead(light[2]) == 0) && (digitalRead(light[4]) == 0 || digitalRead(light[5]) == 0))  //Ausnahme: kreuzung
+  int highdspeed = dspeed;
+  int lowdspeed = -dspeed;
+  
+  if(digitalRead(light[6]) == 0)
   {
-    intersection();
+    delay(400);
+    motor(highdspeed, lowdspeed);
+    delay(200);
     return;
   }
-  
-  int highdspeed;
-  if(ramp)highdspeed = dspeed + 10;
-  else highdspeed = dspeed;
-  int lowdspeed = -dspeed;
   
   if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
   {
@@ -231,12 +231,6 @@ void followLine()
     while(digitalRead(light[5]) == 0 || digitalRead(light[3]) == 1) motor(highdspeed, lowdspeed);
   }
   delay(10);
-}
-
-void intersection()
-{
-  lcd.clear();
-  lcd.print("intersection"); //debug
 }
 
 void search()

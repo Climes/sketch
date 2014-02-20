@@ -7,6 +7,7 @@ void setup()
   pinMode(light[3], INPUT);
   pinMode(light[4], INPUT);
   pinMode(light[5], INPUT);
+  pinMode(light[6], INPUT);
 
 #ifdef ULTRASONIC
   //Ultraschallsensoren
