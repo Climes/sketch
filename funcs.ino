@@ -314,6 +314,10 @@ void print()
 #endif
 }
 
+void clear()
+{
+  lcd.print(dsp_log);
+}
 
 
 

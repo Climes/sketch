@@ -47,7 +47,7 @@ void setup()
   //accelerometer
   accelSetup();
   Serial.begin(9600);
-  
+
 #ifdef DEBUG
   while(true) debug();
 #else
@@ -58,20 +58,24 @@ void setup()
     if(!ramp())
     {
       motor(dspeed);
-      
+
       //Hindernis oder Rettungsmanöver
       if(!digitalRead(TOUCH1) == 1 && !digitalRead(TOUCH2) == 1) //Vordere Drucksensoren
       {
         if(digitalRead(light[3]) == 0) //Mittlerer Lichtwert Schwarz
         {
+          lcd.print("Hindernis");
           motor(0);
-          obstacle(); //BUGGY                    
+          obstacle(); //BUGGY    
+          lcd.clear();          
         }
         else
         {
           //Rettungsmanöver: Zurück auf die Linie
+          lcd.print("Rettungsmanöver");
           motor(-dspeed);
           delay(700);
+          lcd.clear();
         }
       }
 
@@ -79,21 +83,29 @@ void setup()
 #ifdef LINE_FOLLOWING
       if(WHITE)
       {
+        //Suche nach der Linie
+        lcd.print("Suche");
         search();
+        lcd.clear();
       }
       else
       {
+        //Linie folgen 
+        dsp_log="Linie";
         followLine();
       }
     }
     else if(ramp())
     {
+      //Rampe mit Maximalgeschwindigkeit
+      dsp_log="Rampe";
       motor(250);
     }
 #endif
   }
 #endif
 }
+
 
 
 

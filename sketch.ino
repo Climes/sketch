@@ -73,6 +73,7 @@ int light[] = {
 
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27
+String dsp_log = ""; 
 
 //ADXL345 Sensor
 #define DEVICE (0x53)    //ADXL345 device address
