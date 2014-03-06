@@ -7,7 +7,7 @@
 //Settings
 //#define DEBUG
 #define LINE_FOLLOWING
-#define DRIVE 160
+#define DRIVE 140
 #define OBSTACLE
 #define DISPLAY_OUT
 #define ULTRASONIC
@@ -26,8 +26,8 @@ int dspeed = 190;
 
 #define LED 13
 #define Off() OnFwd(FORWARD,0,0) //Konstante für Off = Ausschalten der Motoren
-#define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1  //Konstante für alle Lichtsensoren Weiss
-#define MIDWHITE digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1 && digitalRead(light[4]) == 1
+#define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1 && digitalRead(light[6]) == 1  //Konstante für alle Lichtsensoren Weiss
+
 //Sharp - Ultraschallsensoren
 #define SHARP1 A1 
 #define SHARP2 A2
@@ -67,7 +67,7 @@ int counterRight = 0;
 
 //Lichtarray
 int light[] = {
-  0,14,15,16,17,18,43};
+  0,14,15,16,17,18,47};
 
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27

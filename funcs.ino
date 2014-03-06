@@ -195,16 +195,18 @@ int moveServo(int servo,int pos,int lenght = 50)
 //____________________________________PARTS_____________________________________
 void followLine()
 {
-  int highdspeed = dspeed +30;
-  int lowdspeed  = -(dspeed +30);
+  int highdspeed = dspeed + (190-dspeed);
+  int lowdspeed  = -(dspeed + (190-dspeed));
   
- /*if(digitalRead(light[6]) == 0 && digitalRead(light[3]))
+  if(digitalRead(light[6]) == 0 && digitalRead(light[3]) == 0)
   {
-    delay(400);
     motor(highdspeed, lowdspeed);
-    delay(200);
+    delay(500);
+    motor(0);
+    delay(100);
     return;
-  }*/
+  }
+  
   if((digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)  && digitalRead(light[3]) == 1)
   {
     if(digitalRead(light[2]) == 0) while(digitalRead(light[3]) == 1 && digitalRead(light[4]) == 1) motor(lowdspeed, highdspeed);
