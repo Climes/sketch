@@ -1,7 +1,14 @@
 void debug()
 {
-  Serial.println(accelReadz());
-  delay(100);
+  /*Serial.println(accelReadz());
+  delay(100);*/
+  
+  for(int i = 1; i <=5; i++)
+  {
+    Serial.print(String(i) + ": " + String(digitalRead(light[i])) + "          ");
+  }
+  Serial.println("");
+  delay(500);
 }
 /*int log_i = 0;
 String logEvent[100] = {};

@@ -7,7 +7,7 @@
 //Settings
 //#define DEBUG
 #define LINE_FOLLOWING
-#define DRIVE 200
+#define DRIVE 160
 #define OBSTACLE
 #define DISPLAY_OUT
 #define ULTRASONIC
@@ -40,8 +40,6 @@ int dspeed = 190;
 #define trigR 52
 #define pwmR 53
 
-int counter = 0;
-
 //Touch Sensoren
 #define TOUCH1 30
 #define TOUCH2 31
@@ -73,7 +71,6 @@ int light[] = {
 
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27
-String dsp_log = ""; 
 
 //ADXL345 Sensor
 #define DEVICE (0x53)    //ADXL345 device address

@@ -72,20 +72,6 @@ int ultraSonic(int trig, int pwm)
 {
   digitalWrite(trig, LOW);
   digitalWrite(trig, HIGH);
-
-  if(counter == 0)
-  {
-    lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print(pulseIn(pwm, LOW) /50);
-    counter = 1;
-  }
-  else
-  {
-    lcd.setCursor(0,1);
-    lcd.print(pulseIn(pwm, LOW) /50);
-    counter = 0;
-  }  
   return pulseIn(pwm, LOW) /50;
 }
 
@@ -209,26 +195,26 @@ int moveServo(int servo,int pos,int lenght = 50)
 //____________________________________PARTS_____________________________________
 void followLine()
 {
-  int highdspeed = dspeed;
-  int lowdspeed = -dspeed;
+  int highdspeed = dspeed +30;
+  int lowdspeed  = -(dspeed +30);
   
-  if(digitalRead(light[6]) == 0)
+ /*if(digitalRead(light[6]) == 0 && digitalRead(light[3]))
   {
     delay(400);
     motor(highdspeed, lowdspeed);
     delay(200);
     return;
-  }
+  }*/
   
-  if(digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)
+  if((digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)  && digitalRead(light[3]) == 1)
   {
-    while(digitalRead(light[2]) == 0 || digitalRead(light[3]) == 1) motor(lowdspeed, highdspeed);
-    while(digitalRead(light[4]) == 0 || digitalRead(light[3]) == 1) motor(highdspeed, lowdspeed);
+    while((digitalRead(light[2]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[4]) = 1) motor(lowdspeed, highdspeed);
+    while((digitalRead(light[4]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[2]) = 1) motor(highdspeed, lowdspeed);
   }
   else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
   {
-    while(digitalRead(light[1]) == 0 || digitalRead(light[3]) == 1) motor(lowdspeed, highdspeed);
-    while(digitalRead(light[5]) == 0 || digitalRead(light[3]) == 1) motor(highdspeed, lowdspeed);
+    while((digitalRead(light[1]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[4]) = 1) motor(lowdspeed, highdspeed);
+    while((digitalRead(light[5]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[2]) = 1) motor(highdspeed, lowdspeed);
   }
   delay(10);
 }
@@ -242,9 +228,12 @@ void search()
   int del[] = {
     800,  700,500,700,700,900,700,700,500,700};
 
-  for(int i=0; i <= (sizeof(del) / sizeof(int))-1 && WHITE; i++)
+  for(int i=0; (i <= (sizeof(del) / sizeof(int))-1) && (WHITE); i++)
   {
-    motor(right[i], left[i], del[i]);
+    for(int a=0; a < del[i] && WHITE; a++)
+    {
+      motor(right[i], left[i]);
+    }
   }
 }
 
@@ -284,26 +273,33 @@ void obstacle()
 }
 
 int cache = 0;
-boolean ramp()
+int oldmillis = 0;
+boolean rampup()
 {
-  if(accelReadz() <= -120 && cache == 0)
-  {
-    cache = 1;
-    return true;
-  }
-  if(cache == 1)
-  {
-    if(accelReadz() >= -60)
+  return false;
+    if(millis() > (oldmillis + 100))
     {
-     cache = 0;
-     return false;
+      if(accelReadz() <= -120 && cache == 0)
+      {
+        cache = 1;
+        oldmillis = millis(); 
+        return true;
+      }
     }
-    return true;
-  }
-  else
-  {
-    return false;
-  }
+    if(cache == 1)
+    {
+      if(accelReadz() >= -60)
+      {
+       cache = 0;
+       return false;
+      }
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+    
 }
 
 void print()
@@ -313,13 +309,6 @@ void print()
   return;
 #endif
 }
-
-void clear()
-{
-  lcd.print(dsp_log);
-}
-
-
 
 
 

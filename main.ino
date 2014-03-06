@@ -55,7 +55,7 @@ void setup()
   //___________________________________PROGRAM_______________________________________
   while(true)
   {
-    if(!ramp())
+    if(!rampup())
     {
       motor(dspeed);
 
@@ -64,18 +64,14 @@ void setup()
       {
         if(digitalRead(light[3]) == 0) //Mittlerer Lichtwert Schwarz
         {
-          lcd.print("Hindernis");
           motor(0);
-          obstacle(); //BUGGY    
-          lcd.clear();          
+          obstacle(); 
         }
         else
         {
           //Rettungsmanöver: Zurück auf die Linie
-          lcd.print("Rettungsmanöver");
           motor(-dspeed);
           delay(700);
-          lcd.clear();
         }
       }
 
@@ -84,22 +80,29 @@ void setup()
       if(WHITE)
       {
         //Suche nach der Linie
-        lcd.print("Suche");
         search();
-        lcd.clear();
       }
       else
       {
         //Linie folgen 
-        dsp_log="Linie";
         followLine();
       }
     }
-    else if(ramp())
+    else if(rampup())
     {
       //Rampe mit Maximalgeschwindigkeit
-      dsp_log="Rampe";
-      motor(250);
+      if(ultraSonic(trigL,pwmL) < ultraSonic(trigR,pwmR))
+      {
+        motor(250, 230);
+      }
+      else 
+      {
+        motor(230, 250);
+      }
+    }
+    else if(/*rampdown()*/false)
+    {
+      
     }
 #endif
   }
