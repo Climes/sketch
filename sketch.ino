@@ -27,7 +27,7 @@ int dspeed = 190;
 #define LED 13
 #define Off() OnFwd(FORWARD,0,0) //Konstante für Off = Ausschalten der Motoren
 #define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1  //Konstante für alle Lichtsensoren Weiss
-
+#define MIDWHITE digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1 && digitalRead(light[4]) == 1
 //Sharp - Ultraschallsensoren
 #define SHARP1 A1 
 #define SHARP2 A2

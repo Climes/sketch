@@ -205,16 +205,15 @@ void followLine()
     delay(200);
     return;
   }*/
-  
   if((digitalRead(light[2]) == 0 || digitalRead(light[4]) == 0)  && digitalRead(light[3]) == 1)
   {
-    while((digitalRead(light[2]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[4]) = 1) motor(lowdspeed, highdspeed);
-    while((digitalRead(light[4]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[2]) = 1) motor(highdspeed, lowdspeed);
+    if(digitalRead(light[2]) == 0) while(digitalRead(light[3]) == 1 && digitalRead(light[4]) == 1) motor(lowdspeed, highdspeed);
+    if(digitalRead(light[4]) == 0) while(digitalRead(light[3]) == 1 && digitalRead(light[2]) == 1) motor(highdspeed, lowdspeed);
   }
   else if(digitalRead(light[1]) == 0 || digitalRead(light[5]) == 0)
   {
-    while((digitalRead(light[1]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[4]) = 1) motor(lowdspeed, highdspeed);
-    while((digitalRead(light[5]) == 0 || digitalRead(light[3]) == 1)  && digitalRead(light[2]) = 1) motor(highdspeed, lowdspeed);
+    if(digitalRead(light[1]) == 0) while(digitalRead(light[3]) == 1 && digitalRead(light[4]) == 1) motor(lowdspeed, highdspeed);
+    if(digitalRead(light[5]) == 0) while(digitalRead(light[3]) == 1 && digitalRead(light[2]) == 1) motor(highdspeed, lowdspeed);
   }
   delay(10);
 }
