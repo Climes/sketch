@@ -1,4 +1,4 @@
-#define VERSION "UEBELSTGEILON_1"
+#define VERSION "UEBELSTGEILON_1.1"
 
 #include <Wire.h>
 #include <Servo.h>
