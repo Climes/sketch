@@ -55,10 +55,15 @@ void setup()
   //___________________________________PROGRAM_______________________________________
   while(true)
   {
-    if(!rampup())
+    if(mil())
+    {
+      //Accelerator aktualisieren
+      zCache = accelReadz();
+    }
+
+    if(!rampup() && !rampdown())
     {
       motor(dspeed);
-
       //Hindernis oder Rettungsmanöver
       if(!digitalRead(TOUCH1) == 1 && !digitalRead(TOUCH2) == 1) //Vordere Drucksensoren
       {
@@ -71,7 +76,7 @@ void setup()
         {
           //Rettungsmanöver: Zurück auf die Linie
           motor(-dspeed);
-          delay(700);
+          delay(850);
         }
       }
 
@@ -91,23 +96,20 @@ void setup()
     else if(rampup())
     {
       //Rampe mit Maximalgeschwindigkeit
-      if(ultraSonic(trigL,pwmL) < ultraSonic(trigR,pwmR))
-      {
-        motor(250, 230);
-      }
-      else 
-      {
-        motor(230, 250);
-      }
+      motor(250, 230);
     }
-    else if(/*rampdown()*/false)
+    else if(rampdown())
     {
-
+      //Rampe mit niedriger Geschwindigkeit
+      motor(70, 90);
     }
 #endif
+    zCache = 999;
   }
 #endif
 }
+
+
 
 
 

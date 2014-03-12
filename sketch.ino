@@ -1,13 +1,13 @@
 #define VERSION "UEBELSTGEILON_1"
 
-#include <Wire.h> 
+#include <Wire.h>
 #include <Servo.h>
 #include <LiquidCrystal_I2C.h> 
 
 //Settings
 //#define DEBUG
 #define LINE_FOLLOWING
-#define DRIVE 140
+#define DRIVE 130
 #define OBSTACLE
 #define DISPLAY_OUT
 #define ULTRASONIC
@@ -26,11 +26,11 @@ int dspeed = 190;
 
 #define LED 13
 #define Off() OnFwd(FORWARD,0,0) //Konstante für Off = Ausschalten der Motoren
-#define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1 && digitalRead(light[6]) == 1  //Konstante für alle Lichtsensoren Weiss
+#define WHITE digitalRead(light[1]) == 1 && digitalRead(light[2]) == 1 && digitalRead(light[3]) == 1  && digitalRead(light[4]) == 1 && digitalRead(light[5]) == 1 && digitalRead(light[6]) == 1//Konstante für alle Lichtsensoren Weiss
 
 //Sharp - Ultraschallsensoren
-#define SHARP1 A1 
-#define SHARP2 A2
+#define SHARP1 A1 //RECHTS
+#define SHARP2 A2 //LINKS
 #define SHARP3 A3 // HINTEN
 
 //Ultraschallsensoren
@@ -67,7 +67,9 @@ int counterRight = 0;
 
 //Lichtarray
 int light[] = {
-  0,14,15,16,17,18,47};
+  0,14,15,16,17,18, 47};
+  
+int oldcnt = 0;
 
 //Display Initialisierung 
 LiquidCrystal_I2C lcd(0x27,16,2); //0x27
@@ -78,6 +80,8 @@ LiquidCrystal_I2C lcd(0x27,16,2); //0x27
  
 byte buff[TO_READ] ;    //6 bytes buffer for saving data read from the device
 char str[512];      
+
+int zCache = 0;
 
 //END Defines
 void loop(){};
