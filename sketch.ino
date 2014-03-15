@@ -5,7 +5,7 @@
 #include <LiquidCrystal_I2C.h> 
 
 //Settings
-//#define DEBUG
+#define DEBUG
 #define LINE_FOLLOWING
 #define DRIVE 130
 #define OBSTACLE

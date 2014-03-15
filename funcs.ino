@@ -290,7 +290,7 @@ void obstacle()
 }
 
 int cache = 0;
-int oldmillis = 0;
+long oldmillis = 0;
 
 boolean mil()
 {
