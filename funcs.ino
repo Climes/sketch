@@ -176,13 +176,14 @@ int accelReadz(){
   return(accelRead(3));
 }
 
-int moveServo(int servo,int pos,int lenght = 50)
+int moveServo(int servo,int pos,int lenght = 35)
 {          
   Servo myservo;  
   myservo.attach(servo); 
+
   if (servoPos[servo] < pos) 
   {
-    for(servoPos[servo] ; servoPos[servo] <=pos; servoPos[servo]++)     
+    for(servoPos[servo] ; servoPos[servo] <pos; servoPos[servo]++)     
     {                                
       myservo.write(servoPos[servo]);            
       delay(lenght);                      
@@ -190,12 +191,13 @@ int moveServo(int servo,int pos,int lenght = 50)
   }
   else
   {
-    for(servoPos[servo]; servoPos[servo] >=pos; servoPos[servo]--)  
+    for(servoPos[servo]; servoPos[servo] >pos; servoPos[servo]--)  
     {                                 
       myservo.write(servoPos[servo]);              
-      delay(lenght);                    
+      delay(lenght);   
     } 
   }
+  myservo.detach();
 }
 //____________________________________PARTS_____________________________________
 void followLine()

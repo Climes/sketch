@@ -55,11 +55,11 @@ int dspeed = 190;
 #define ODOMR 1
 
 //Servos
-#define SERVO1 46
-#define SERVO2 22
+#define SERVO1 49 //Am Robo, 45* ~ 45, 70* ~ 20
+#define SERVO2 22 //Mitte, 90* ~ 100, 180* ~ 50
 #define SERVO3 28
 
-int servoPos[SERVO1];
+int servoPos[50];
 
 //Odometer
 int counterLeft = 0;

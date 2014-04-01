@@ -40,9 +40,9 @@ void setup()
   lcd.print(VERSION);
 
   //Servos
-  servoPos[SERVO1] = 0;
-  servoPos[SERVO2] = 0;
-  servoPos[SERVO3] = 0;
+  servoPos[SERVO1] = 70;
+  servoPos[SERVO2] = 155;
+  servoPos[SERVO3] = 56;
 
   //accelerometer
   accelSetup();
